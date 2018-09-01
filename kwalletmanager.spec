@@ -6,7 +6,7 @@
 #
 Name     : kwalletmanager
 Version  : 18.08.0
-Release  : 2
+Release  : 3
 URL      : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz
 Source0  : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz
 Source99 : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz.sig
@@ -85,7 +85,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535433245
+export SOURCE_DATE_EPOCH=1535777957
 mkdir clr-build
 pushd clr-build
 %cmake ..
@@ -93,7 +93,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535433245
+export SOURCE_DATE_EPOCH=1535777957
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/doc/kwalletmanager
 cp COPYING %{buildroot}/usr/share/doc/kwalletmanager/COPYING
@@ -103,6 +103,9 @@ pushd clr-build
 popd
 %find_lang kcmkwallet
 %find_lang kwalletmanager
+## install_append content
+mv %{buildroot}/etc/dbus-1/* %{buildroot}/usr/share/dbus-1/
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -117,6 +120,7 @@ popd
 /usr/share/applications/kwalletmanager5-kwalletd.desktop
 /usr/share/applications/org.kde.kwalletmanager5.desktop
 /usr/share/dbus-1/system-services/org.kde.kcontrol.kcmkwallet5.service
+/usr/share/dbus-1/system.d/org.kde.kcontrol.kcmkwallet5.conf
 /usr/share/icons/hicolor/128x128/apps/kwalletmanager.png
 /usr/share/icons/hicolor/128x128/apps/kwalletmanager2.png
 /usr/share/icons/hicolor/16x16/apps/kwalletmanager.png
