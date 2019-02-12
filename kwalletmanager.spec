@@ -5,22 +5,22 @@
 # Source0 file verified with key 0xDBD2CE893E2D1C87 (cfeck@kde.org)
 #
 Name     : kwalletmanager
-Version  : 18.08.0
-Release  : 3
-URL      : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz
-Source0  : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz
-Source99 : https://download.kde.org/stable/applications/18.08.0/src/kwalletmanager-18.08.0.tar.xz.sig
-Summary  : No detailed summary available
+Version  : 18.12.2
+Release  : 4
+URL      : https://download.kde.org/stable/applications/18.12.2/src/kwalletmanager-18.12.2.tar.xz
+Source0  : https://download.kde.org/stable/applications/18.12.2/src/kwalletmanager-18.12.2.tar.xz
+Source99 : https://download.kde.org/stable/applications/18.12.2/src/kwalletmanager-18.12.2.tar.xz.sig
+Summary  : Wallet management tool
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: kwalletmanager-bin
-Requires: kwalletmanager-lib
-Requires: kwalletmanager-data
-Requires: kwalletmanager-license
-Requires: kwalletmanager-locales
+Requires: kwalletmanager-bin = %{version}-%{release}
+Requires: kwalletmanager-data = %{version}-%{release}
+Requires: kwalletmanager-lib = %{version}-%{release}
+Requires: kwalletmanager-license = %{version}-%{release}
+Requires: kwalletmanager-locales = %{version}-%{release}
 BuildRequires : buildreq-cmake
 BuildRequires : buildreq-kde
-BuildRequires : qtbase-dev qtbase-extras mesa-dev
+BuildRequires : qtbase-dev mesa-dev
 
 %description
 No detailed description available
@@ -28,8 +28,8 @@ No detailed description available
 %package bin
 Summary: bin components for the kwalletmanager package.
 Group: Binaries
-Requires: kwalletmanager-data
-Requires: kwalletmanager-license
+Requires: kwalletmanager-data = %{version}-%{release}
+Requires: kwalletmanager-license = %{version}-%{release}
 
 %description bin
 bin components for the kwalletmanager package.
@@ -54,8 +54,8 @@ doc components for the kwalletmanager package.
 %package lib
 Summary: lib components for the kwalletmanager package.
 Group: Libraries
-Requires: kwalletmanager-data
-Requires: kwalletmanager-license
+Requires: kwalletmanager-data = %{version}-%{release}
+Requires: kwalletmanager-license = %{version}-%{release}
 
 %description lib
 lib components for the kwalletmanager package.
@@ -78,34 +78,31 @@ locales components for the kwalletmanager package.
 
 
 %prep
-%setup -q -n kwalletmanager-18.08.0
+%setup -q -n kwalletmanager-18.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1535777957
-mkdir clr-build
+export SOURCE_DATE_EPOCH=1549943660
+mkdir -p clr-build
 pushd clr-build
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1535777957
+export SOURCE_DATE_EPOCH=1549943660
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/doc/kwalletmanager
-cp COPYING %{buildroot}/usr/share/doc/kwalletmanager/COPYING
-cp COPYING.LIB %{buildroot}/usr/share/doc/kwalletmanager/COPYING.LIB
+mkdir -p %{buildroot}/usr/share/package-licenses/kwalletmanager
+cp COPYING %{buildroot}/usr/share/package-licenses/kwalletmanager/COPYING
+cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kwalletmanager/COPYING.LIB
 pushd clr-build
 %make_install
 popd
 %find_lang kcmkwallet
 %find_lang kwalletmanager
-## install_append content
-mv %{buildroot}/etc/dbus-1/* %{buildroot}/usr/share/dbus-1/
-## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -138,6 +135,8 @@ mv %{buildroot}/etc/dbus-1/* %{buildroot}/usr/share/dbus-1/
 /usr/share/kservices5/kwalletmanager5_show.desktop
 /usr/share/kxmlgui5/kwalletmanager5/kwalletmanager.rc
 /usr/share/metainfo/org.kde.kwalletmanager5.appdata.xml
+/usr/share/polkit-1/actions/org.kde.kcontrol.kcmkwallet5.policy
+/usr/share/xdg/kwalletmanager.categories
 
 %files doc
 %defattr(0644,root,root,0755)
@@ -193,9 +192,9 @@ mv %{buildroot}/etc/dbus-1/* %{buildroot}/usr/share/dbus-1/
 /usr/lib64/qt5/plugins/kcm_kwallet5.so
 
 %files license
-%defattr(-,root,root,-)
-/usr/share/doc/kwalletmanager/COPYING
-/usr/share/doc/kwalletmanager/COPYING.LIB
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/kwalletmanager/COPYING
+/usr/share/package-licenses/kwalletmanager/COPYING.LIB
 
 %files locales -f kcmkwallet.lang -f kwalletmanager.lang
 %defattr(-,root,root,-)
