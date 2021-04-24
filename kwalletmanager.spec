@@ -5,14 +5,14 @@
 # Source0 file verified with key 0xBB463350D6EF31EF (heiko@shruuf.de)
 #
 Name     : kwalletmanager
-Version  : 20.12.3
-Release  : 29
-URL      : https://download.kde.org/stable/release-service/20.12.3/src/kwalletmanager-20.12.3.tar.xz
-Source0  : https://download.kde.org/stable/release-service/20.12.3/src/kwalletmanager-20.12.3.tar.xz
-Source1  : https://download.kde.org/stable/release-service/20.12.3/src/kwalletmanager-20.12.3.tar.xz.sig
+Version  : 21.04.0
+Release  : 30
+URL      : https://download.kde.org/stable/release-service/21.04.0/src/kwalletmanager-21.04.0.tar.xz
+Source0  : https://download.kde.org/stable/release-service/21.04.0/src/kwalletmanager-21.04.0.tar.xz
+Source1  : https://download.kde.org/stable/release-service/21.04.0/src/kwalletmanager-21.04.0.tar.xz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : GPL-2.0 LGPL-2.1
+License  : BSD-3-Clause GPL-2.0 GPL-3.0 LGPL-2.0
 Requires: kwalletmanager-bin = %{version}-%{release}
 Requires: kwalletmanager-data = %{version}-%{release}
 Requires: kwalletmanager-lib = %{version}-%{release}
@@ -79,15 +79,15 @@ locales components for the kwalletmanager package.
 
 
 %prep
-%setup -q -n kwalletmanager-20.12.3
-cd %{_builddir}/kwalletmanager-20.12.3
+%setup -q -n kwalletmanager-21.04.0
+cd %{_builddir}/kwalletmanager-21.04.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1618695117
+export SOURCE_DATE_EPOCH=1619225575
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -103,11 +103,16 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1618695117
+export SOURCE_DATE_EPOCH=1619225575
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kwalletmanager
-cp %{_builddir}/kwalletmanager-20.12.3/COPYING %{buildroot}/usr/share/package-licenses/kwalletmanager/7c203dee3a03037da436df03c4b25b659c073976
-cp %{_builddir}/kwalletmanager-20.12.3/COPYING.LIB %{buildroot}/usr/share/package-licenses/kwalletmanager/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kwalletmanager-21.04.0/CMakePresets.json.license %{buildroot}/usr/share/package-licenses/kwalletmanager/29fb05b49e12a380545499938c4879440bd8851e
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/GPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/3e8971c6c5f16674958913a94a36b1ea7a00ac46
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/GPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/3e8971c6c5f16674958913a94a36b1ea7a00ac46
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/LGPL-2.0-only.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/a4c60b3fefda228cd7439d3565df043192fef137
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/LGPL-2.0-or-later.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/a4c60b3fefda228cd7439d3565df043192fef137
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/7d9831e05094ce723947d729c2a46a09d6e90275
+cp %{_builddir}/kwalletmanager-21.04.0/LICENSES/LicenseRef-KDE-Accepted-GPL.txt %{buildroot}/usr/share/package-licenses/kwalletmanager/7d9831e05094ce723947d729c2a46a09d6e90275
 pushd clr-build
 %make_install
 popd
@@ -204,8 +209,10 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/kwalletmanager/7c203dee3a03037da436df03c4b25b659c073976
-/usr/share/package-licenses/kwalletmanager/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+/usr/share/package-licenses/kwalletmanager/29fb05b49e12a380545499938c4879440bd8851e
+/usr/share/package-licenses/kwalletmanager/3e8971c6c5f16674958913a94a36b1ea7a00ac46
+/usr/share/package-licenses/kwalletmanager/7d9831e05094ce723947d729c2a46a09d6e90275
+/usr/share/package-licenses/kwalletmanager/a4c60b3fefda228cd7439d3565df043192fef137
 
 %files locales -f kcmkwallet.lang -f kwalletmanager.lang
 %defattr(-,root,root,-)
